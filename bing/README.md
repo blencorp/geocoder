@@ -1,5 +1,13 @@
 ## Setup
 
+Create settings file and add your API key:
+
+```
+cat settings.ini
+[Bing]
+Key=<your api key>
+```
+
 ```
 sudo apt-get install python-setuptools
 wget https://fedorahosted.org/releases/s/u/suds/python-suds-0.3.7.tar.gz
