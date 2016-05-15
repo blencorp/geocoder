@@ -4,6 +4,7 @@ import sys
 import os.path
 import csv
 import ConfigParser
+from Response import GetResponse
 from Geocode import GetGeocode
 
 def main(argv):
@@ -18,7 +19,6 @@ def main(argv):
   else:
     # Get args.
     filename = argv[0]
-    col = 0
 
     # Check if file exists.
     if (os.path.isfile(filename) == False):
@@ -31,15 +31,15 @@ def main(argv):
 
     apikey = config.get('Bing','Key')
 
-    # Read CSV
-    with open(filename, 'rb') as csvfile:
-      spamreader = csv.reader(csvfile, delimiter='|')
-      for row in spamreader:
-        # Get column based on arg
-        place = row[col]
+    # Read input file.
+    with open(filename, 'rb') as f:
+      places = f.read()
 
-        # Get geocode for each "Place"
-        geocode = GetGeocode(apikey, place)
+      # Expects one place per line.
+      for place in places:
+        response = GetResponse(apikey, place)
+        g = GetGeocode(response)
+        print g['name'], g['code']
 
   return 0
 
