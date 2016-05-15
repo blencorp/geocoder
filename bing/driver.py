@@ -40,7 +40,7 @@ def main(argv):
         try:
           response = GetResponse(apikey, place)
           g = GetGeocode(response)
-          print '{0} | {1}'.format(g['name'], g['code'])
+          print '{0}|{1}|{2}'.format(g['name'], g['lat'], g['long'])
         except Exception:
           pass
 

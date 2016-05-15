@@ -28,7 +28,8 @@ cat data/places.txt
 ```
 
 ```
-Alphabet Inc.
+The Library of Congress
+Mountain View, CA
 ```
 
 ```shell
@@ -36,13 +37,7 @@ Alphabet Inc.
 ```
 
 ```
-```
-
-### Misc
-
-Simple request:
-
-```
-http://dev.virtualearth.net/REST/v1/Locations?q=Greenville&maxResults=10&key=BingMapsKey
+Library of Congress, DC|38.8876113892|-77.0047073364
+Mountain View, CA|37.3896713257|-122.081596375
 ```
 

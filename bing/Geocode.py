@@ -17,8 +17,12 @@ def GetGeocode(jsondata):
   g = {}
 
   # Set name and geocode.
-  g['name'] = data['resourceSets'][0]['resources'][0]['name']
-  g['code'] = data['resourceSets'][0]['resources'][0]['geocodePoints'][0]['coordinates']
+  try:
+    g['name'] = data['resourceSets'][0]['resources'][0]['name']
+    g['lat'] = data['resourceSets'][0]['resources'][0]['geocodePoints'][0]['coordinates'][0]
+    g['long'] = data['resourceSets'][0]['resources'][0]['geocodePoints'][0]['coordinates'][1]
+  except:
+    pass
 
   return g
 
