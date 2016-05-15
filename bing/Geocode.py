@@ -22,8 +22,6 @@ def GetGeocode(key, place):
     #print('{} {}'.format(todo_item['id'], todo_item['summary']))
     print('{}'.format(todo_item))
 
-  #http://dev.virtualearth.net/REST/v1/Locations?q=Greenville&maxResults=10&key=BingMapsKey
-  #http://dev.virtualearth.net/REST/v1/Locations?q=Greenville&maxResults=10&key=BingMapsKey
   _geocode = 'coming soon'
 
 # request = urllib2.Request(url)
@@ -49,25 +47,4 @@ def GetGeocode(key, place):
 #    _geocode.append(loc['Longitude'])
 
   return _geocode
-
-def GetResponse():
-  # http://stackoverflow.com/questions/27606478/search-bing-via-azure-api-using-python
-  keyBing = ''        # get Bing key from: https://datamarket.azure.com/account/keys
-  credentialBing = 'Basic ' + (':%s' % keyBing).encode('base64')[:-1] # the "-1" is to remove the trailing "\n" which encode adds
-  searchString = '%27Xbox+One%27'
-  top = 20
-  offset = 0
-
-  url = 'https://api.datamarket.azure.com/Bing/Search/Image?' + \
-        'Query=%s&$top=%d&$skip=%d&$format=json' % (searchString, top, offset)
-
-  request = urllib2.Request(url)
-  request.add_header('Authorization', credentialBing)
-  requestOpener = urllib2.build_opener()
-  response = requestOpener.open(request)
-
-  results = json.load(response)
-
-  # process results
-  print results
 
