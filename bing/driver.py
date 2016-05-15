@@ -12,13 +12,13 @@ def main(argv):
   if argv is None:
     argv = sys.argv
 
-  if len(argv) != 2:
-    print "usage: {0} <filename> <csv column numer>".format(__file__)
+  if len(argv) != 1:
+    print "usage: {0} <filename>".format(__file__)
     exit(1)
   else:
     # Get args.
     filename = argv[0]
-    col = int(argv[1])
+    col = 0
 
     # Check if file exists.
     if (os.path.isfile(filename) == False):
