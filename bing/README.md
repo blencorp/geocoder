@@ -32,6 +32,8 @@ The Library of Congress
 Mountain View, CA
 ```
 
+Get geocodes for places in test file:
+
 ```shell
 ./driver.py data/places.txt
 ```
