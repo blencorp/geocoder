@@ -1,32 +1,48 @@
 #!/usr/bin/python
 
 import sys
-from Database import GetDBN
-from Database import UpdateTable
-from AddressParser import GetAddressByNumber
+import os.path
+import csv
+import ConfigParser
 from Geocode import GetGeocode
 
-def main(argv=None):
-  """Main function to drive the process.
+def main(argv):
+  """Main function to drive the program.
   """
-  dbhost = '_server'
-  dbuser = '_user'
-  dbpass = '_pass'
-  dbname = "_dbname"
-  apikey = "AAAAAABBBBBBBBBBBCCCCCCCCCCCCCCCCDDDDDDDDDDDDDDDDEEEEEEEEEEEEFFF"
+  if argv is None:
+    argv = sys.argv
 
-  # Get a list of DBNs from DB table.
-  numbers = GetDBN(dbhost, dbuser, dbpass, dbname, 5)
+  if len(argv) != 2:
+    print "usage: {0} <filename> <csv column numer>".format(__file__)
+    exit(1)
+  else:
+    # Get args.
+    filename = argv[0]
+    col = int(argv[1])
 
-  # For each DBN, get address, get geocode, and update table.
-  for number in numbers:
-    addrs = GetAddressByNumber(number)
-    geocode = GetGeocode(apikey, addrs)
-    addrs.append(geocode[0])
-    addrs.append(geocode[1])
-    UpdateTable(dbhost, dbuser, dbpass, dbname, addrs, number)
+    # Check if file exists.
+    if (os.path.isfile(filename) == False):
+      exit("{0} does not exist.".format(filename))
+
+    # Read API Key.
+    keyfile = 'settings.ini'
+    config = ConfigParser.ConfigParser()
+    config.read(keyfile)
+
+    apikey = config.get('Bing','Key')
+
+    # Read CSV
+    with open(filename, 'rb') as csvfile:
+      spamreader = csv.reader(csvfile, delimiter='|')
+      for row in spamreader:
+        # Get column based on arg
+        place = row[col]
+
+        # Get geocode for each "Place"
+        geocode = GetGeocode(apikey, place)
 
   return 0
 
 if __name__ == "__main__":
-  sys.exit(main())
+  main(sys.argv[1:])
+
