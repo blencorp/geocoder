@@ -2,7 +2,6 @@
 
 import sys
 import os.path
-import csv
 import ConfigParser
 from Response import GetResponse
 from Geocode import GetGeocode
@@ -33,13 +32,17 @@ def main(argv):
 
     # Read input file.
     with open(filename, 'rb') as f:
-      places = f.read()
-
       # Expects one place per line.
+      # Using splitlines to avoid newline.
+      places = f.read().splitlines()
+
       for place in places:
-        response = GetResponse(apikey, place)
-        g = GetGeocode(response)
-        print g['name'], g['code']
+        try:
+          response = GetResponse(apikey, place)
+          g = GetGeocode(response)
+          print '{0} | {1}'.format(g['name'], g['code'])
+        except Exception:
+          pass
 
   return 0
 

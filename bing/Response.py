@@ -11,7 +11,7 @@ def GetResponse(key, place):
   """
 
   base = 'http://dev.virtualearth.net/REST/v1/Locations'
-  rmax = 10
+  rmax = 1
   url = base + '?q=' + place + '&key=' + key
 
   response = requests.get(url)
